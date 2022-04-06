@@ -1,0 +1,1459 @@
+{
+	"info": {
+		"_postman_id": "a3b9b418-f0b3-47ac-befb-639ab1516836",
+		"name": "Flyff Universe",
+		"description": "# Introduction\n\nCurrently limited to **300 calls per minute per IP**. No size limitation on the request and the response.\n\nFeel free to cache the results and fetch the data only when the [data version](https://flyff-api.sniegu.fr/#tag/version) changes.\n\nVersion History:\n\n*   1.0.0 - 2021/03/17 - Initial version. Class, NPC and Place basic information.\n*   1.1.0 - 2021/07/19 - World, Monster, Item, Skill, Element and Language. Added more Class and Place icons.\n*   1.1.1 - 2021/08/01 - Monster experience and bug fixes.\n*   1.1.2 - 2021/09/06 - Karma levels, Boss Monsters spawns and more Monster Attack information.\n*   1.2.0 - 2021/11/03 - Party Skill, Quest and Achievement.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Game Data",
+			"item": [
+				{
+					"name": "Versions",
+					"item": [
+						{
+							"name": "Get the version of the game data",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/version/data",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"version",
+										"data"
+									]
+								},
+								"description": "Returns an unique ID representing the current version of the static game data"
+							},
+							"response": []
+						},
+						{
+							"name": "Get the version of the game API",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/version/api",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"version",
+										"api"
+									]
+								},
+								"description": "Returns the current version of the game API"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Class",
+					"item": [
+						{
+							"name": "Get all classes IDs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/class",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"class"
+									]
+								},
+								"description": "Returns an array containing the ID of all available classes"
+							},
+							"response": []
+						},
+						{
+							"name": "Find class by ID",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const classId = 764;",
+											"pm.globals.set(\"classId\", classId)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/class/{{classId}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"class",
+										"{{classId}}"
+									]
+								},
+								"description": "Returns a single class"
+							},
+							"response": []
+						},
+						{
+							"name": "Find classes by a list of IDs",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const classIds = '764,2246,3545';",
+											"pm.globals.set(\"classIds\", classIds)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/class/{{classIds}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"class",
+										"{{classIds}}"
+									]
+								},
+								"description": "Returns an array with classes"
+							},
+							"response": []
+						},
+						{
+							"name": "Get class icon",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const style = 'messenger';",
+											"pm.globals.set(\"style\", style)",
+											"",
+											"const fileName = 'vagrant.png';",
+											"pm.globals.set(\"fileName\", fileName)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/image/class/{{style}}/{{fileName}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"image",
+										"class",
+										"{{style}}",
+										"{{fileName}}"
+									]
+								},
+								"description": "Returns icon for the specified file name"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "World",
+					"item": [
+						{
+							"name": "Get all worlds IDs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/world",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"world"
+									]
+								},
+								"description": "Returns an array containing the ID of all available worlds"
+							},
+							"response": []
+						},
+						{
+							"name": "Find world by ID",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const worldId = '615';",
+											"pm.globals.set(\"worldId\", worldId)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/world/{{worldId}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"world",
+										"{{worldId}}"
+									]
+								},
+								"description": "Returns a single world"
+							},
+							"response": []
+						},
+						{
+							"name": "Find worlds by a list of IDs",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const worldIds = '615,1595,1873';",
+											"pm.globals.set(\"worldIds\", worldIds)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/world/{{worldIds}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"world",
+										"{{worldIds}}"
+									]
+								},
+								"description": "Returns an array with worlds"
+							},
+							"response": []
+						},
+						{
+							"name": "Get world tile",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const worldTileName = 'wdmadrigal';",
+											"pm.globals.set(\"worldTileName\", worldTileName)",
+											"",
+											"const tileX = '1';",
+											"pm.globals.set(\"tileX\", tileX)",
+											"",
+											"const tileY = '1';",
+											"pm.globals.set(\"tileY\", tileY)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/image/world/{{worldTileName}}{{tileX}}-{{tileY}}-0.png",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"image",
+										"world",
+										"{{worldTileName}}{{tileX}}-{{tileY}}-0.png"
+									]
+								},
+								"description": "Returns tile for the specified world and position"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Monster",
+					"item": [
+						{
+							"name": "Get all monsters IDs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/monster",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"monster"
+									]
+								},
+								"description": "Returns an array containing the ID of all available monsters"
+							},
+							"response": []
+						},
+						{
+							"name": "Find monster by ID",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const monsterId = '22';",
+											"pm.globals.set(\"monsterId\", monsterId)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/monster/{{monsterId}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"monster",
+										"{{monsterId}}"
+									]
+								},
+								"description": "Returns a single monster"
+							},
+							"response": []
+						},
+						{
+							"name": "Find monsters by a list of IDs",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const monsterIds = '22,23,26';",
+											"pm.globals.set(\"monsterIds\", monsterIds)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/monster/{{monsterIds}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"monster",
+										"{{monsterIds}}"
+									]
+								},
+								"description": "Returns an array with monsters"
+							},
+							"response": []
+						},
+						{
+							"name": "Get monster icon",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const fileName = 'bang.png';",
+											"pm.globals.set(\"fileName\", fileName)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/image/monster/{{fileName}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"image",
+										"monster",
+										"{{fileName}}"
+									]
+								},
+								"description": "Returns icon for the specified file name"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Item",
+					"item": [
+						{
+							"name": "Get all items IDs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/item",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"item"
+									]
+								},
+								"description": "Returns an array containing the ID of all available items"
+							},
+							"response": []
+						},
+						{
+							"name": "Find item by ID",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const itemId = '1';",
+											"pm.globals.set(\"itemId\", itemId)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/item/{{itemId}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"item",
+										"{{itemId}}"
+									]
+								},
+								"description": "Returns a single item"
+							},
+							"response": []
+						},
+						{
+							"name": "Find items by a list of IDs",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const itemIds = '1,3,4';",
+											"pm.globals.set(\"itemIds\", itemIds)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/item/{{itemIds}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"item",
+										"{{itemIds}}"
+									]
+								},
+								"description": "Returns an array with items"
+							},
+							"response": []
+						},
+						{
+							"name": "Get item icon",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const fileName = 'weaswonormal.png';",
+											"pm.globals.set(\"fileName\", fileName)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/image/item/{{fileName}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"image",
+										"item",
+										"{{fileName}}"
+									]
+								},
+								"description": "Returns icon for the specified file name"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Equipment Set",
+					"item": [
+						{
+							"name": "Get all equipment set IDs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/equipset",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"equipset"
+									]
+								},
+								"description": "Returns an array containing the ID of all available equipment sets"
+							},
+							"response": []
+						},
+						{
+							"name": "Find equipment set by ID",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const equipSetId = '30';",
+											"pm.globals.set(\"equipSetId\", equipSetId)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/equipset/{{equipSetId}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"equipset",
+										"{{equipSetId}}"
+									]
+								},
+								"description": "Returns a single equipment set"
+							},
+							"response": []
+						},
+						{
+							"name": "Find equipment sets by a list of IDs",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const equipSetIds = '30,70,90';",
+											"pm.globals.set(\"equipSetIds\", equipSetIds)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/equipset/{{equipSetIds}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"equipset",
+										"{{equipSetIds}}"
+									]
+								},
+								"description": "Returns an array with equipment sets"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Skill",
+					"item": [
+						{
+							"name": "Get all skills IDs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/skill",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"skill"
+									]
+								},
+								"description": "Returns an array containing the ID of all available skills"
+							},
+							"response": []
+						},
+						{
+							"name": "Find skill by ID",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const skillId = '39';",
+											"pm.globals.set(\"skillId\", skillId)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/skill/{{skillId}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"skill",
+										"{{skillId}}"
+									]
+								},
+								"description": "Returns a single skill"
+							},
+							"response": []
+						},
+						{
+							"name": "Find skills by a list of IDs",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const skillIds = '39,51,146';",
+											"pm.globals.set(\"skillIds\", skillIds)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/skill/{{skillIds}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"skill",
+										"{{skillIds}}"
+									]
+								},
+								"description": "Returns an array with skills"
+							},
+							"response": []
+						},
+						{
+							"name": "Get skill icon",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const style = 'old';",
+											"pm.globals.set(\"style\", style)",
+											"",
+											"const fileName = 'acrbowaimeds.png';",
+											"pm.globals.set(\"fileName\", fileName)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/image/skill/{{style}}/{{fileName}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"image",
+										"skill",
+										"{{style}}",
+										"{{fileName}}"
+									]
+								},
+								"description": "Returns icon for the specified file name"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "PartySkill",
+					"item": [
+						{
+							"name": "Get all party skills IDs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/partyskill",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"partyskill"
+									]
+								},
+								"description": "Returns an array containing the ID of all available party skills"
+							},
+							"response": []
+						},
+						{
+							"name": "Find party skill by ID",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const partySkillId = '18';",
+											"pm.globals.set(\"partySkillId\", partySkillId)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/partyskill/{{partySkillId}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"partyskill",
+										"{{partySkillId}}"
+									]
+								},
+								"description": "Returns a single party skill"
+							},
+							"response": []
+						},
+						{
+							"name": "Find party skills by a list of IDs",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const partySkillIds = '18,1093,2475';",
+											"pm.globals.set(\"partySkillIds\", partySkillIds)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/partyskill/{{partySkillIds}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"partyskill",
+										"{{partySkillIds}}"
+									]
+								},
+								"description": "Returns an array with party skills"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "NPC",
+					"item": [
+						{
+							"name": "Get all NPCs IDs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/npc",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"npc"
+									]
+								},
+								"description": "Returns an array containing the ID of all available NPCs"
+							},
+							"response": []
+						},
+						{
+							"name": "Find NPC by ID",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const npcId = '29';",
+											"pm.globals.set(\"npcId\", npcId)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/npc/{{npcId}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"npc",
+										"{{npcId}}"
+									]
+								},
+								"description": "Returns a single NPC"
+							},
+							"response": []
+						},
+						{
+							"name": "Find NPCs by a list of IDs",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const npcIds = '29,54,193';",
+											"pm.globals.set(\"npcIds\", npcIds)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/npc/{{npcIds}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"npc",
+										"{{npcIds}}"
+									]
+								},
+								"description": "Returns an array with NPCs"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Quest",
+					"item": [
+						{
+							"name": "Get all Quests IDs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/quest",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"quest"
+									]
+								},
+								"description": "Returns an array containing the ID of all available Quests"
+							},
+							"response": []
+						},
+						{
+							"name": "Find Quest by ID",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const questId = '88';",
+											"pm.globals.set(\"questId\", questId)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/quest/{{questId}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"quest",
+										"{{questId}}"
+									]
+								},
+								"description": "Returns a single Quest"
+							},
+							"response": []
+						},
+						{
+							"name": "Find Quests by a list of IDs",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const questIds = '88,129,181';",
+											"pm.globals.set(\"questIds\", questIds)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/quest/{{questIds}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"quest",
+										"{{questIds}}"
+									]
+								},
+								"description": "Returns an array with Quests"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Karma",
+					"item": [
+						{
+							"name": "Get all Karma levels IDs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/karma",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"karma"
+									]
+								},
+								"description": "Returns an array containing the ID of all available Karma levels"
+							},
+							"response": []
+						},
+						{
+							"name": "Find Karma by ID",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const karmaId = '538';",
+											"pm.globals.set(\"karmaId\", karmaId)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/karma/{{karmaId}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"karma",
+										"{{karmaId}}"
+									]
+								},
+								"description": "Returns a single Karma"
+							},
+							"response": []
+						},
+						{
+							"name": "Find Karma levels by a list of IDs",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const karmaIds = '538,897,1291';",
+											"pm.globals.set(\"karmaIds\", karmaIds)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/karma/{{karmaIds}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"karma",
+										"{{karmaIds}}"
+									]
+								},
+								"description": "Returns an array with Karma levels"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Achievement",
+					"item": [
+						{
+							"name": "Get all achievement IDs",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/achievement",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"achievement"
+									]
+								},
+								"description": "Returns an array containing the ID of all available achievements"
+							},
+							"response": []
+						},
+						{
+							"name": "Find achievement by ID",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const achievementId = '58';",
+											"pm.globals.set(\"achievementId\", achievementId)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/achievement/{{achievementId}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"achievement",
+										"{{achievementId}}"
+									]
+								},
+								"description": "Returns a single achievement"
+							},
+							"response": []
+						},
+						{
+							"name": "Find achivements by a list of IDs",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const achievementIds = '58,77,182';",
+											"pm.globals.set(\"achievementIds\", achievementIds)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/achievement/{{achievementIds}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"achievement",
+										"{{achievementIds}}"
+									]
+								},
+								"description": "Returns an array with achievements"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Core",
+			"item": [
+				{
+					"name": "Language",
+					"item": [
+						{
+							"name": "Get all languages",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/language",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"language"
+									]
+								},
+								"description": "Returns an array containing all the languages"
+							},
+							"response": []
+						},
+						{
+							"name": "Get language flag",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const fileName = 'en.png';",
+											"pm.globals.set(\"fileName\", fileName)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/image/language/{{fileName}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"image",
+										"language",
+										"{{fileName}}"
+									]
+								},
+								"description": "Returns flag for the specified file name"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "LocalizedText",
+					"item": []
+				},
+				{
+					"name": "Location",
+					"item": []
+				},
+				{
+					"name": "Spawn",
+					"item": []
+				},
+				{
+					"name": "Ability",
+					"item": []
+				},
+				{
+					"name": "Place",
+					"item": [
+						{
+							"name": "Get place icon",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const fileName = 'publicoffice.png';",
+											"pm.globals.set(\"fileName\", fileName)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/image/place/{{fileName}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"image",
+										"place",
+										"{{fileName}}"
+									]
+								},
+								"description": "Returns icon for the specified file name"
+							},
+							"response": []
+						}
+					],
+					"description": "string (Place)Enum: \"lodestar\" \"lodelight\" \"flyingstation\" \"weaponstore\" \"armorstore\" \"foodstore\" \"magicstore\" \"generalstore\" \"publicoffice\" \"questoffice\" \"dungeon\" \"shieldstore\" \"warpzone\"\n\nSpecific location in a world"
+				},
+				{
+					"name": "Element",
+					"item": [
+						{
+							"name": "Get element icon",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const style = 'pc';",
+											"pm.globals.set(\"style\", style)",
+											"",
+											"const fileName = 'fire.png';",
+											"pm.globals.set(\"fileName\", fileName)"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://flyff-api.sniegu.fr/image/element/{{style}}/{{fileName}}",
+									"protocol": "https",
+									"host": [
+										"flyff-api",
+										"sniegu",
+										"fr"
+									],
+									"path": [
+										"image",
+										"element",
+										"{{style}}",
+										"{{fileName}}"
+									]
+								},
+								"description": "Returns icon for the specified file name"
+							},
+							"response": []
+						}
+					],
+					"description": "string (Element)Enum: \"fire\" \"water\" \"electricity\" \"wind\" \"earth\" \"none\"\n\nNatural element"
+				},
+				{
+					"name": "Color",
+					"item": []
+				}
+			]
+		}
+	]
+}
